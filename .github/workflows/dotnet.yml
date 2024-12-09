@@ -24,7 +24,7 @@ jobs:
         cache: true
 
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore ${GITHUB_WORKSPACE}/simple_example
 
     - name: Build
       run: dotnet build --no-restore
