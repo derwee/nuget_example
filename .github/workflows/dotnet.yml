@@ -27,6 +27,11 @@ jobs:
       run: |
         ls ${{ github.workspace }}
 
+    - name: List Variables
+      run: |
+        echo "Variables:"
+        env | grep -e '^VAR_PREFIX_'
+
     - name: Restore dependencies
       run: dotnet restore ${GITHUB_WORKSPACE}/simple_example.sln
 
@@ -34,7 +39,7 @@ jobs:
       run: dotnet build --no-restore --configuration Release ${GITHUB_WORKSPACE}/simple_example.sln
 
     - name: Test
-      run: dotnet test --no-build --verbosity normal ${GITHUB_WORKSPACE}/tests/tests.csproj
+      run: dotnet test --no-build --verbosity normal ${GITHUB_WORKSPACE}/tests/tests.csproj /help
 
     - name: Version and Tag
       id: bump_version
