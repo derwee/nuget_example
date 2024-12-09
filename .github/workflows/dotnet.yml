@@ -26,7 +26,7 @@ jobs:
       run: dotnet restore ${GITHUB_WORKSPACE}/simple_example
 
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build --no-restore ${GITHUB_WORKSPACE}/simple_example
 
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test --no-build --verbosity normal  ${GITHUB_WORKSPACE}/simple_example
