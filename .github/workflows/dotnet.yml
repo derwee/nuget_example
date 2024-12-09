@@ -29,8 +29,7 @@ jobs:
 
     - name: List Variables
       run: |
-        echo "Variables:"
-        env | grep -e '^VAR_PREFIX_'
+        printenv
 
     - name: Restore dependencies
       run: dotnet restore ${GITHUB_WORKSPACE}/simple_example.sln
