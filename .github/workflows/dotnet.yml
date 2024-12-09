@@ -23,13 +23,13 @@ jobs:
         dotnet-version: 8.0.x
 
     - name: Restore dependencies
-      run: dotnet restore ${GITHUB_WORKSPACE}/simple_example
+      run: dotnet restore ${GITHUB_WORKSPACE}
 
     - name: Build
-      run: dotnet build --no-restore --configuration Release ${GITHUB_WORKSPACE}/simple_example
+      run: dotnet build --no-restore --configuration Release ${GITHUB_WORKSPACE}
 
     - name: Test
-      run: dotnet test --no-build --verbosity normal  ${GITHUB_WORKSPACE}/tests
+      run: dotnet test --no-build --verbosity normal  ${GITHUB_WORKSPACE}
 
     - name: Version and Tag
       id: bump_version
@@ -49,10 +49,10 @@ jobs:
         version: ${{ env.VERSION_NUMBER }}
 
     - name: Pack
-      run: dotnet pack --configuration Release simple_example
+      run: dotnet pack --configuration Release ${GITHUB_WORKSPACE}/simple_example
 
     - name: Publish Package
-      run: dotnet nuget push simple_example/bin/Release/*.nupkg --source https://nuget.pkg.github.com/derwee/index.json
+      run: dotnet nuget push ${GITHUB_WORKSPACE}/simple_example/bin/Release/*.nupkg --source https://nuget.pkg.github.com/derwee/index.json
 
     - name: Create Release
       uses: actions/create-release@v1
