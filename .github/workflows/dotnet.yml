@@ -26,7 +26,38 @@ jobs:
       run: dotnet restore ${GITHUB_WORKSPACE}/simple_example
 
     - name: Build
-      run: dotnet build --no-restore ${GITHUB_WORKSPACE}/simple_example
+      run: dotnet build --no-restore --configuration Release ${GITHUB_WORKSPACE}/simple_example
 
     - name: Test
-      run: dotnet test --no-build --verbosity normal  ${GITHUB_WORKSPACE}/simple_example
+      run: dotnet test --no-build --verbosity normal  ${GITHUB_WORKSPACE}/tests
+
+    - name: Version and Tag
+      id: bump_version
+      uses: mathieudutour/github-tag-action@v1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Prep Version String
+      run: echo ::set-env name=VERSION_NUMBER::$(echo ${{ steps.bump_version.outputs.new_tag }} | sed 's/[v]//g')
+
+    - name: Define Package Name
+      run: echo ::set-env name=PACKAGE_NAME::$"simple_example/bin/Release/simple_example.${{ env.VERSION_NUMBER }}.nupkg"
+
+    - name: Set Nuget Package Version
+      uses: roryprimrose/set-vs-sdk-project-version@v1
+      with:
+        version: ${{ env.VERSION_NUMBER }}
+
+    - name: Pack
+      run: dotnet pack --configuration Release simple_example
+
+    - name: Publish Package
+      run: dotnet nuget push simple_example/bin/Release/*.nupkg --source https://nuget.pkg.github.com/derwee/index.json
+
+    - name: Create Release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ steps.bump_version.outputs.new_tag }}
+        release_name: Release ${{ github.ref }}

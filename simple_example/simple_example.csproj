@@ -1,8 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
-
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <Nullable>enable</Nullable>
+        <PackageId>Simple.Example</PackageId>
+        <Title>Simple Example</Title>
+        <PackageDescription>Simple Example to show case github actions</PackageDescription>
+        <PackageProjectUrl>https://github.com/derwee/Simple.Example</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/derwee/nuget_example</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <OutputType>Library</OutputType>
+        <Version>1.0.0</Version>
+        <Authors>Example Author</Authors>
+        <Company>Example Company Inc</Company>
+    </PropertyGroup>
 </Project>
