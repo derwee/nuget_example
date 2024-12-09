@@ -22,14 +22,19 @@ jobs:
       with:
         dotnet-version: 8.0.x
 
+    #List everything
+    - name: List files in the repository
+      run: |
+        ls ${{ github.workspace }}
+
     - name: Restore dependencies
       run: dotnet restore ${GITHUB_WORKSPACE}
 
     - name: Build
-      run: dotnet build --no-restore --configuration Release ${GITHUB_WORKSPACE}
+      run: dotnet build --no-restore --configuration Release ${GITHUB_WORKSPACE}/simple_example
 
     - name: Test
-      run: dotnet test --no-build --verbosity normal  ${GITHUB_WORKSPACE}
+      run: dotnet test --no-build --verbosity normal ${GITHUB_WORKSPACE}/
 
     - name: Version and Tag
       id: bump_version
