@@ -47,7 +47,7 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Prep Version String
-      run: echo "VERSION_NUMBER=$(echo ${{ steps.bump_version.outputs.new_tag }} | sed 's/[v]//g')" >> $MY_ENV_VAR"
+      run: echo "VERSION_NUMBER=$(echo ${{ steps.bump_version.outputs.new_tag }} | sed 's/[v]//g')" >> $MY_ENV_VAR
 
     - name: Dump
       run: echo $MY_ENV_VAR
