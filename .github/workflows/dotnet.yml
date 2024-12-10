@@ -52,6 +52,9 @@ jobs:
     - name: Define Package Name
       run: echo "PACKAGE_NAME=$(simple_example/bin/Release/simple_example.${{ env.VERSION_NUMBER }}.nupkg)" >> $GITHUB_ENV
 
+    - name: show vars
+      run: echo ${VERSION_NUMBER} ${PACKAGE_NAME} \n $VERSION_NUMBER $PACKAGE_NAME
+
     - name: Set Nuget Package Version
       uses: roryprimrose/set-vs-sdk-project-version@v1
       with:
